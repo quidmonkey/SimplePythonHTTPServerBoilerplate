@@ -44,7 +44,7 @@ class mHandler(http.server.BaseHTTPRequestHandler):
 			resolve_post_url(post_params)
 		#nothing to parse
 		else:
-			postvars = {}
+			post_params = {}
 		self.send_response(301)
 		return
 
