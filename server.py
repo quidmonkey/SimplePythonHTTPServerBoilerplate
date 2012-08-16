@@ -63,10 +63,13 @@ class mHandler(http.server.BaseHTTPRequestHandler):
 		self.end_headers()
 		return
 
+	def __repr__(self):
+		return "A simple HTTP server written in Python 3.2.3. Capable of GET and POST requests."
+
 def httpd(args=sys.argv):
 	try:
 		#grab port from cmd line
-		port = DEFAULT_PORT if len(args) < 1 else int(args[1])
+		port = DEFAULT_PORT if len(args) < 2 else int(args[1])
 		server = http.server.HTTPServer(('', port), mHandler)
 		print('Running HTTP Server on Port', port)
 		server.serve_forever()
