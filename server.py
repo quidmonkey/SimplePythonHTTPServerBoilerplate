@@ -14,6 +14,7 @@ class mHandler(http.server.BaseHTTPRequestHandler):
 	def do_GET(self):
 		# from https://github.com/amadeus/python-impact/blob/master/server.py
 		try:
+			#isolate file name - remove url-encoding
 			file_path = self.path.split('?', 1)[0]
 
 			#remove the leading forward slash
@@ -37,6 +38,8 @@ class mHandler(http.server.BaseHTTPRequestHandler):
 			self.send_header('Content-Type', type)
 			self.send_header('Content-Length', len(data))
 			self.end_headers()
+
+			#write response
 			self.wfile.write(data)
 
 		except IOError:
