@@ -9,14 +9,10 @@ python server.py 80
 ```
 If no port is specified, the server will default to port 8080.
 
-If a specific .html file is requested, the server will serve it up; otherwise, the server will serve up a generic 'Hello World!' message. Additional GET requests on specific filetypes can be added like so:
-```python
-if self.path.endswith('.ext'):
-	#serve up GET request here
-```
-
-The server is also designed to take form & url-encoded POST requests. The resolve_post_form() and resolve_post_url() methods can be overloaded with the desired logic.
+The server is designed to take any GET request and POST request. The resolve_post_form() and resolve_post_url() methods are provided for a form and url-encoded POST respectively. Both should be overridden with the desired custom logic.
 
 Feel free to fork and improve as you see fit.
 
 Enjoy!
+
+Special Thanks: I owe a great debt to the [Python-Impact](https://github.com/amadeus/python-impact/) Web Server. Much of the GET logic was taken from there. A big shout out to its author [Armon](https://github.com/armon).
