@@ -53,7 +53,7 @@ class mHandler(http.server.BaseHTTPRequestHandler):
 			else:
 				self.send_error(404, 'File Not Found: %s' % file_path )
 
-	#evolved from http://stackoverflow.com/questions/4233218/python-basehttprequesthandler-post-variables
+	#from http://stackoverflow.com/questions/4233218/python-basehttprequesthandler-post-variables
 	def do_POST(self):
 		ctype, pdict = cgi.parse_header(self.headers['content-type'])
 		#parse form
