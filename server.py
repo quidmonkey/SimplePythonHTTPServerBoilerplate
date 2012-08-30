@@ -3,6 +3,7 @@ import mimetypes
 from os import curdir, sep
 import socketserver
 import sys
+from urllib.parse import parse_qs
 
 DEFAULT_PORT = 8080
 
@@ -52,21 +53,19 @@ class mHandler(http.server.BaseHTTPRequestHandler):
 			else:
 				self.send_error(404, 'File Not Found: %s' % file_path )
 
-	# from http://stackoverflow.com/questions/4233218/python-basehttprequesthandler-post-variables
+	#evolved from http://stackoverflow.com/questions/4233218/python-basehttprequesthandler-post-variables
 	def do_POST(self):
-		ctype, pdict = cgi.parse_header(self.headers.getheader('content-type'))
+		ctype, pdict = cgi.parse_header(self.headers['content-type'])
 		#parse form
 		if ctype == 'multipart/form-data':
 			post_params = cgi.parse_multipart(self.rfile, pdict)
 			resolve_post_form(post_params)
 		#parse url
 		elif ctype == 'application/x-www-form-urlencoded':
-			length = int(self.headers.getheader('content-length'))
-			post_params = cgi.parse_qs(self.rfile.read(length), keep_blank_values=1)
+			length = int(self.headers['content-length'])
+			post_params = parse_qs(self.rfile.read(length), keep_blank_values = True)
 			resolve_post_url(post_params)
-		#nothing to parse
-		else:
-			post_params = {}
+
 		self.send_response(301)
 		return
 
